@@ -36,6 +36,19 @@ conteneur :
 docker compose exec nosql bash
 ```
 
+Accéder aux fichiers des TP montés depuis `PROJECT_PATH` :
+
+```bash
+cd /vagrant/TpBigData
+ls
+```
+
+Le même chemin est disponible avec la variable du cours :
+
+```bash
+cd "$MYTPHOME"
+```
+
 Les chemins du cours sont déjà disponibles :
 
 ```bash
