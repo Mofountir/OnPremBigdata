@@ -1,0 +1,12 @@
+name: development
+
+services:
+  dev:
+    container_name: development-dev
+    hostname: dev
+    build:
+      context: .
+      dockerfile: docker/dev/Dockerfile
+    command: "sleep infinity"
+    volumes:
+      - "${PROJECT_PATH:?Definir PROJECT_PATH dans .env}:/workspace"

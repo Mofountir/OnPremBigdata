@@ -1,0 +1,22 @@
+name: bigdata-cours
+
+services:
+  nosql:
+    image: bigdata/nosql:ce
+    hostname: nosql
+    build:
+      context: .
+      dockerfile: docker/nosql/Dockerfile
+    volumes:
+      - "${PROJECT_PATH:?Definir PROJECT_PATH dans .env}:/vagrant/TpBigData"
+      - "${DATA_PATH:?Definir DATA_PATH dans .env}/nosql:/kvroot"
+    healthcheck:
+      test: "java -jar /opt/oracle/kv/lib/kvstore.jar ping -host nosql -port 5000 >/dev/null"
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    stop_grace_period: 60s
+
+networks:
+  default:
+    name: bigdata-network
