@@ -1,17 +1,14 @@
 # Big Data On-Prem
 
-Environnement Docker pour les TP Oracle NoSQL, Hadoop, Hive et Spark.
+## Setup
 
-## 1. Préparer le dépôt
-
-Prérequis : Docker Desktop démarré.
+Prérequis : Docker Desktop et `make`.
 
 ```bash
 cp .env.example .env
 ```
 
-Dans `.env`, renseigner le chemin absolu du dossier `TpBigData` fourni avec le
-cours :
+Configurer `.env` :
 
 ```env
 PROJECT_PATH=/chemin/vers/TpBigData
@@ -22,132 +19,56 @@ MYSQL_PASSWORD=hive
 MYSQL_ROOT_PASSWORD=root_tp_local
 ```
 
-## 2. Démarrer Oracle NoSQL
-
-```bash
-docker compose up -d --build
-docker compose ps
-```
-
-Attendre que le service `nosql` soit `healthy`, puis ouvrir un terminal dans le
-conteneur :
-
-```bash
-docker compose exec --workdir /vagrant/TpBigData nosql bash
-```
-
-Le terminal s'ouvre dans les fichiers des TP montés depuis `PROJECT_PATH` :
-
-```bash
-pwd
-ls
-```
-
-Le même chemin est disponible avec la variable du cours :
-
-```bash
-cd "$MYTPHOME"
-```
-
-Les chemins du cours sont déjà disponibles :
-
-```bash
-echo "$KVHOME"
-echo "$KVROOT"
-echo "$MYTPHOME"
-```
-
-## 3. TP M4.2 — interface d'administration
-
-Dans le conteneur :
-
-```bash
-java -jar "$KVHOME/lib/kvstore.jar" runadmin \
-  -host localhost \
-  -port 5000 \
-  -store kvstore
-```
-
-Test rapide au prompt `kv->` :
+Pour M4.6.2, télécharger **kv-client-22.3.52** dans la section
+**Oracle NoSQL Database, Client Driver — Java** de la
+[page officielle Oracle](https://www.oracle.com/database/technologies/nosql-database-server-prev-downloads.html),
+puis l'extraire dans :
 
 ```text
-help
-show topology
-exit
+vendor/oracle-nosql-client-22.3.52/
+└── lib/kvclient.jar
 ```
 
-Si la topologie s'affiche, commencer le sujet à **M4.2.1.1**.
+Toutes les commandes suivantes sont à lancer depuis la racine du dépôt. `make`
+affiche la liste complète.
 
-## 4. TP M4.3
-
-### M4.3.1 — tables avec l'interface d'administration
-
-Relancer l'interface utilisée pour M4.2 :
+## Oracle NoSQL — TP M4.2 et M4.3
 
 ```bash
-java -jar "$KVHOME/lib/kvstore.jar" runadmin \
-  -host localhost \
-  -port 5000 \
-  -store kvstore
+make start    # démarre Oracle NoSQL et attend qu'il soit prêt
+make admin    # ouvre la CLI kv-> pour M4.2 et M4.3.1
+make sql      # ouvre la CLI sql-> pour M4.3.2
+make shell    # ouvre /vagrant/TpBigData
+make status   # affiche l'état du service
+make logs     # affiche les logs
+make stop     # arrête Oracle NoSQL
 ```
 
-Si la connexion fonctionne, commencer le sujet à **M4.3.1.1**.
-
-### M4.3.2 — tables avec l'interface SQL
-
-Dans le conteneur :
+## Hadoop, Hive et Spark — TP M4.6
 
 ```bash
-java -jar "$KVHOME/lib/sql.jar" \
-  -helper-hosts localhost:5000 \
-  -store kvstore
+make dist-start   # démarre Oracle NoSQL, Hadoop, YARN, Hive et Spark
+make dist-status  # affiche l'état des services
+make hdfs         # ouvre un terminal Hadoop dans /vagrant/TpBigData
+make hive         # ouvre la CLI Hive
+make pyspark      # ouvre la CLI PySpark
+make r-start      # démarre R en option
+make r            # ouvre la console R
+make dist-stop    # arrête la plateforme complète
 ```
 
-Test rapide au prompt `sql->` :
+Ce socle couvre M4.6.2 et M4.6.3.1 à M4.6.3.3. À partir de M4.6.3.4,
+Oracle Database EE avec Big Data SQL nécessite la VM du cours.
 
-```sql
-SHOW TABLES;
-EXIT;
-```
-
-Si la commande répond, continuer le sujet à **M4.3.2.2**.
-
-## 5. Arrêter l'environnement
-
-Quitter d'abord le conteneur :
+## Développement Java et Python
 
 ```bash
-exit
+make dev-start  # démarre l'environnement Java 8 et Python 3.9
+make dev-shell  # ouvre le terminal dans /workspace
+make dev-stop   # arrête l'environnement de développement
 ```
-
-Puis, depuis le Mac :
-
-```bash
-docker compose down
-```
-
-Les données Oracle NoSQL restent dans `${DATA_PATH}/nosql`.
 
 ## Suivi des TP
 
 - [TP M4.2](tp/m42/README.md)
 - [TP M4.3](tp/m43/README.md)
-
-## Autres environnements
-
-```bash
-# Hadoop, YARN, Hive et Spark
-docker compose -f docker-compose.dist.yaml up -d --build
-
-# Java et Python uniquement
-docker compose -f docker-compose.dev.yaml up -d --build
-```
-
-Pour le TP M4.6.2, démarrer Oracle NoSQL et l'environnement distribué ensemble :
-
-```bash
-docker compose \
-  -f docker-compose.yaml \
-  -f docker-compose.dist.yaml \
-  up -d --build
-```

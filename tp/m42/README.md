@@ -6,10 +6,10 @@ Suivre la section M4.2 du [README principal](../../README.md).
 
 ## Énoncé
 
-Entrer dans le conteneur :
+Depuis la racine du dépôt, entrer dans le conteneur :
 
 ```bash
-docker compose exec --workdir /vagrant/TpBigData nosql bash
+make shell
 ```
 
 Afficher l'énoncé :
