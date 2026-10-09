@@ -3,6 +3,9 @@
 vendor/
 data/
 tp/*
-!tp/.gitkeep
+!tp/m42/
+!tp/m42/README.md
+!tp/m43/
+!tp/m43/README.md
 *.class
 *.log

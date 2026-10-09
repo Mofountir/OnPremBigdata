@@ -33,13 +33,13 @@ Attendre que le service `nosql` soit `healthy`, puis ouvrir un terminal dans le
 conteneur :
 
 ```bash
-docker compose exec nosql bash
+docker compose exec --workdir /vagrant/TpBigData nosql bash
 ```
 
-Accéder aux fichiers des TP montés depuis `PROJECT_PATH` :
+Le terminal s'ouvre dans les fichiers des TP montés depuis `PROJECT_PATH` :
 
 ```bash
-cd /vagrant/TpBigData
+pwd
 ls
 ```
 
@@ -127,6 +127,11 @@ docker compose down
 ```
 
 Les données Oracle NoSQL restent dans `${DATA_PATH}/nosql`.
+
+## Suivi des TP
+
+- [TP M4.2](tp/m42/README.md)
+- [TP M4.3](tp/m43/README.md)
 
 ## Autres environnements
 
