@@ -21,6 +21,11 @@
     <name>hive.metastore.uris</name>
     <value>thrift://hive-metastore:9083</value>
   </property>
+  <!-- TP local sans authentification : permettre à HiveServer2 de lire les notifications. -->
+  <property>
+    <name>hive.metastore.event.db.notification.api.auth</name>
+    <value>false</value>
+  </property>
   <property>
     <name>hive.metastore.schema.verification</name>
     <value>true</value>

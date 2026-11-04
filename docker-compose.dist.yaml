@@ -17,6 +17,7 @@ x-hive: &hive
   volumes:
     - "${PROJECT_PATH:?Definir PROJECT_PATH dans .env}:/vagrant/TpBigData"
     - "${ORACLE_NOSQL_CLIENT_PATH:?Definir ORACLE_NOSQL_CLIENT_PATH dans .env}/lib:/opt/hive/auxlib:ro"
+    - "./config/hive/hive-site.xml:/opt/hive/conf/hive-site.xml:ro"
 
 x-spark: &spark
   image: bigdata/spark:3.5.0

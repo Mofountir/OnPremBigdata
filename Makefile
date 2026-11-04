@@ -57,7 +57,8 @@ stop:
 	$(COMPOSE) down
 
 dist-start:
-	$(DIST) up -d --build --wait
+	$(DIST) build nosql namenode hive-metastore spark-master
+	$(DIST) up -d --no-build --wait
 
 dist-status:
 	$(DIST) ps
