@@ -6,7 +6,7 @@ RUN apt-get update \
     && R -e 'install.packages(c("DBI", "rJava", "RJDBC"), repos="https://cloud.r-project.org")' \
     && mkdir -p /opt/hive-jdbc \
     && curl -fL --retry 3 \
-      "https://archive.apache.org/dist/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz" \
+      "https://repo.huaweicloud.com/apache/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz" \
       -o /tmp/hive.tar.gz \
     && tar -xzf /tmp/hive.tar.gz -C /opt/hive-jdbc --strip-components=2 \
       apache-hive-3.1.3-bin/jdbc/hive-jdbc-3.1.3-standalone.jar \
