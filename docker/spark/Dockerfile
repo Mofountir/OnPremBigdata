@@ -5,7 +5,7 @@ RUN dnf install -y java-1.8.0-openjdk-devel python39 "python39-pip" \
     && dnf clean all \
     && ln -s "$(dirname "$(dirname "$(readlink -f /usr/bin/javac)")")" "/opt/java8" \
     && curl -fL --retry 3 \
-      "https://archive.apache.org/dist/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz" \
+      "https://repo.huaweicloud.com/apache/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz" \
       -o /tmp/spark.tgz \
     && mkdir -p "/opt/spark" \
     && tar -xzf /tmp/spark.tgz -C "/opt/spark" --strip-components=1 \

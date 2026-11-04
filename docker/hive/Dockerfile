@@ -5,13 +5,13 @@ RUN dnf install -y java-1.8.0-openjdk-devel curl tar gzip procps-ng hostname \
     && ln -s "$(dirname "$(dirname "$(readlink -f /usr/bin/javac)")")" "/opt/java8"
 
 RUN curl -fL --retry 3 \
-      "https://archive.apache.org/dist/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz" \
+      "https://repo.huaweicloud.com/apache/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz" \
       -o /tmp/hadoop.tar.gz \
     && mkdir -p "/opt/hadoop" \
     && tar -xzf /tmp/hadoop.tar.gz -C "/opt/hadoop" --strip-components=1 \
     && rm /tmp/hadoop.tar.gz \
     && curl -fL --retry 3 \
-      "https://archive.apache.org/dist/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz" \
+      "https://repo.huaweicloud.com/apache/hive/hive-3.1.3/apache-hive-3.1.3-bin.tar.gz" \
       -o /tmp/hive.tar.gz \
     && mkdir -p "/opt/hive" \
     && tar -xzf /tmp/hive.tar.gz -C "/opt/hive" --strip-components=1 \

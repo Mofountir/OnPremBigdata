@@ -9,3 +9,4 @@ tp/*
 !tp/m43/README.md
 *.class
 *.log
+TpBigData/*
